@@ -1,0 +1,10 @@
+# Node
+node_modules
+
+# Vagrant
+.vagrant
+
+# Puppet setup
+puppet/.*
+puppet/modules/*
+!puppet/modules/armada/*

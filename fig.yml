@@ -1,0 +1,14 @@
+db:
+  image: dockerfile/rethinkdb
+  ports:
+    - "8080:8080"
+    - "28015:28015"
+    - "29015:29015"
+  command: rethinkdb -d /data --bind all --canonical-address `curl icanhazip.com`
+
+controller:
+  build: ./controller
+  links:
+    - db
+  ports:
+    - "3333:3333"

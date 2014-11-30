@@ -1,0 +1,20 @@
+{
+  "name": "armada-controller",
+  "version": "1.0.0",
+  "description": "Armada PaaS controller",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.9.3",
+    "coffee-script": "^1.8.0",
+    "debug": "^2.1.0",
+    "express": "^4.10.4",
+    "morgan": "^1.5.0",
+    "oauth2-server": "^2.3.0"
+  }
+}
