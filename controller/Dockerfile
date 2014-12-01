@@ -1,9 +1,9 @@
-FROM aegypius/nodejs
+FROM dockerfile/nodejs
 
-ADD . /app
-WORKDIR /app
-RUN cd /app
+ADD package.json /data/package.json
 RUN npm install
+
+ADD . /data
 
 EXPOSE 3333
 
