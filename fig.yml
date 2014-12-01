@@ -1,20 +1,26 @@
-db:
-  image: dockerfile/rethinkdb
+consul:
+  image: progrium/consul:latest
+  environment:
+    - GOMAXPROCS 2
   ports:
-    - "8080:8080"
-    - "28015:28015"
-    - "29015:29015"
-  command: rethinkdb -d /data --bind all --canonical-address `curl icanhazip.com`
+    - "8300:8300"
+    - "8400:8400"
+    - "8500:8500"
+    - "8600:53/udp"
+  command: -server -bootstrap
 
-controller:
-  build: ./controller
+registrator:
+  image: progrium/registrator:latest
   links:
-    - db
-  ports:
-    - "3333:3333"
+    - consul
+  volumes:
+    - "/var/run/docker.sock:/tmp/docker.sock"
+  command: consul://consul:8500
 
-reverse-proxy:
+rvp:
   build: ./reverse-proxy
+  links:
+    - consul
   ports:
     - "80:80"
-    - "7946:7946"
+    - "443:443"

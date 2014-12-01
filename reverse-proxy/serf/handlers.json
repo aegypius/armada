@@ -1,6 +1,0 @@
-{
-    "event_handlers": [
-            "member-join=/etc/serf/handlers/join.sh",
-            "member-leave,member-failed=/etc/serf/handlers/leave.sh"
-        ]
-}
