@@ -1,7 +1,7 @@
 consul:
   image: progrium/consul:latest
   environment:
-    - GOMAXPROCS 2
+    GOMAXPROCS: 2
   ports:
     - "8300:8300"
     - "8400:8400"

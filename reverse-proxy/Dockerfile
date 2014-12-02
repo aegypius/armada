@@ -1,9 +1,10 @@
 FROM nginx
 
-# Install suypervisor
-RUN apt-get -qq update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qqy install supervisor
-RUN mkdir -p /var/log/supervisor
+# Update sources lists
+RUN apt-get update -qq
+
+# Install runit
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -qqy --no-install-recommends runit
 
 # Install consul-template
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -qqy curl
@@ -11,7 +12,9 @@ ENV CONSUL_TEMPLATE_VERSION 0.3.1
 RUN curl -sL https://github.com/hashicorp/consul-template/releases/download/v${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.tar.gz | tar -C /usr/local/bin --strip-components 1 -zxf -
 
 # Configuring
-ADD supervisord.conf /etc/supervisor/conf.d/sites.conf
-ADD consul-templates /etc/consul-templates
+ADD etc/service /etc/service
+RUN chmod -R +x /etc/service/*
+ADD etc/consul-templates /etc/consul-templates
+RUN rm -v /etc/nginx/conf.d/*
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/runsvdir", "/etc/service"]
