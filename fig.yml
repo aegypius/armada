@@ -24,3 +24,13 @@ rvp:
   ports:
     - "80:80"
     - "443:443"
+
+app1:
+  build: ./sample-app
+  environment:
+    SERVICE_NAME: app
+    SERVICE_TAGS: web
+  links:
+    - consul
+  ports:
+    - 80
