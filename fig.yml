@@ -1,3 +1,13 @@
+app1:
+  build: ./sample-app
+  environment:
+    SERVICE_NAME: app
+    SERVICE_TAGS: web
+  links:
+    - consul
+  ports:
+    - 80
+
 consul:
   image: progrium/consul:latest
   environment:
@@ -17,20 +27,18 @@ registrator:
     - "/var/run/docker.sock:/tmp/docker.sock"
   command: consul://consul:8500
 
-rvp:
-  build: ./reverse-proxy
+#rvp:
+#  build: ./reverse-proxy
+#  links:
+#    - consul
+#  ports:
+#    - "80:80"
+#    - "443:443"
+#
+router:
+  build: ./router
   links:
     - consul
   ports:
     - "80:80"
     - "443:443"
-
-app1:
-  build: ./sample-app
-  environment:
-    SERVICE_NAME: app
-    SERVICE_TAGS: web
-  links:
-    - consul
-  ports:
-    - 80
