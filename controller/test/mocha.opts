@@ -1,0 +1,4 @@
+--compilers coffee:coffee-script/register
+--timeout   5s
+--require   test/bootstrap.js
+--ui        bdd

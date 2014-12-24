@@ -1,12 +1,15 @@
 FROM dockerfile/nodejs
 
-ADD package.json /data/package.json
+ENV DEBUG armada*
+ENV DATABASE_PATH /data
+
+WORKDIR /app
+ADD package.json /app/package.json
 RUN npm install
 
-ADD . /data
+ADD . /app
 
 EXPOSE 3333
 
-ENV DEBUG armada*
-
-CMD ["npm", "start"]
+CMD ["run"]
+ENTRYPOINT ["/app/bin/armada"]
