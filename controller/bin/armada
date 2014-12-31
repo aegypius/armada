@@ -1,39 +1,7 @@
 #!/usr/bin/env node
 require('coffee-script/register');
 
-var pkg    = require('../package.json'),
-    armada = require('../lib'),
-    cli    = require('commander'),
-    debug  = require('debug')(pkg.name + ':cli');
-
-/**
- * Global options
- */
-cli.version(pkg.version);
-
-/**
- * Setup command
- */
-cli
-  .command('setup')
-  .description('setup armada containers')
-  .action(armada.setup)
-;
-
-/**
- * Run command
- */
-cli
-  .command('run')
-  .description('run armada server')
-  .action(function () {
-    var http = armada.http,
-        port = process.env.PORT || 3333;
-    http.listen(port, function () {
-      debug('listening on http://0.0.0.0:' + port);
-    });
-  })
-;
+var cli    = require('../lib/cli');
 
 cli.parse(process.argv);
 

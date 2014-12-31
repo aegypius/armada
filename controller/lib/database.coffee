@@ -1,5 +1,5 @@
-{DATABASE_PATH} = require './config'
+{database} = require './config'
 levelup         = require 'levelup'
-db              = levelup(DATABASE_PATH)
+db              = levelup(database.path)
 
 module.exports  = db

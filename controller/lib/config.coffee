@@ -4,4 +4,13 @@ unless process.env.NODE_ENV is 'production'
 path = require 'path'
 
 module.exports = config =
-  DATABASE_PATH: process.env.DATABASE_PATH or path.join __dirname, '..',  'data'
+  # Database configuration
+  database: {
+    path: process.env.DATABASE_PATH or path.join __dirname, '..',  'data'
+  }
+
+  # Docker configuration
+  docker: {
+    host:  process.env.DOCKER_HOST  or "/var/run/docker.sock"
+    image: process.env.DOCKER_IMAGE or "aegypius/armada"
+  }
